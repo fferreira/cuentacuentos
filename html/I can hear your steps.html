@@ -12,8 +12,10 @@
 <tw-story></tw-story>
 
 <tw-storydata name="I can hear your steps" startnode="1" creator="Twine" creator-version="2.0.11" ifid="3BB7B115-1810-4F44-BB75-94F03656FF03" format="Harlowe" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">
+
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">
-</script><tw-passagedata pid="1" name="the silent corridor" tags="" position="335,212">As usual at this [[time]], the corridor was silent. You would have to walk for a while before reaching the busy corridors of the library to your left, or the noisy cafeteria to your right.
+
+</script><tw-passagedata pid="1" name="the silent corridor" tags="" position="698,63">As usual at this [[time]], the corridor was silent. You would have to walk for a while before reaching the busy corridors of the library to your left, or the noisy cafeteria to your right.
 
 Do you need to go to the [[library &lt;- left]] or to the [[cafeteria &lt;- right]]?</tw-passagedata>
 <tw-passagedata pid="2" name="time" tags="" position="338,48">It&#39;s the evening, it&#39;s always the evening. Around 8PM? Who knows, why would anyone care...
@@ -21,26 +23,87 @@ Do you need to go to the [[library &lt;- left]] or to the [[cafeteria &lt;- righ
 [[back -&gt;the silent corridor]] </tw-passagedata>
 <tw-passagedata pid="3" name="library " tags="" position="188,367">There&#39;s plenty of people here. But no one minds each other, everyone is busy working. It&#39;s always midterm time at the library.
 
-You go to the third floor and idly browse your favourite books. After a while, you remember all the unread books on your desk and stop looking for more. You go [[back to your office -&gt; the not so silent corridor]]. </tw-passagedata>
-<tw-passagedata pid="4" name="cafeteria " tags="" position="485,362">The cafeteria is cheerful, people are working in teams, eating and hanging out with friends. You like it here, and you think you should use it more often. An idea that you only have when in the cafeteria, you&#39;ll forget this feeling the moment you walk out the door.
+(if: $book_needed is true)[
+Which was the book that you needed?
+* [Principles of Ferode use]&lt;pfu|
+* [Introduction to Strambalators]&lt;is|
+* [Short history of the Phoenician Ferode Strambalators]&lt;shfs|
+(click: ?pfu)[(set: $book to &quot;principles&quot;) ]
+(click: ?is)[(set: $book to &quot;introduction&quot;) ]
+(click: ?shfs)[(set: $book to &quot;history&quot;) ]
+](else:)[
+You go to the third floor and idly browse your favourite books. After a while, you remember all the unread books on your desk and stop looking for more.] You go [[back to your office -&gt; the not so silent corridor]]. 
 
-You stand in line to grab a coffee but soon abandon the idea, the line is too long. You go back to the [[corridor -&gt; the not so silent corridor]].</tw-passagedata>
-<tw-passagedata pid="5" name=" the not so silent corridor" tags="" position="396,664">There are two people arguing in front of your office. Their tone is tense and very loud. You *just* want to sneak in your office.
+</tw-passagedata>
+<tw-passagedata pid="4" name="cafeteria " tags="" position="1157,492">The cafeteria is cheerful, people are working in teams, eating and hanging out with friends. You like it here, and you think you should use it more often. An idea that you only have when in the cafeteria, you&#39;ll forget this feeling the moment you walk out the door.
+
+What will it be?
+
+* [Large coffee]&lt;large|
+* [Normal coffee]&lt;normal|
+* [Small coffee]&lt;small|
+
+You stand in line to grab a coffee but soon abandon the idea, the line is too long. You go back to the [[corridor -&gt; the not so silent corridor]].
+
+(click: ?large)[ (set: $coffee to &quot;large&quot;) ] 
+(click: ?normal)[ (set: $coffee to &quot;normal&quot;) ]
+(click: ?small)[ (replace: ?small)[Of course, not! You never get the small size] ]
+
+
+</tw-passagedata>
+<tw-passagedata pid="5" name=" the not so silent corridor" tags="" position="708,851">There are two people arguing in front of your office(if: $again is true)[, again!](else:)[.] Their tone is tense and very loud. You *just* want to sneak in your office.
+
+(if: $again is true)[What keeps them returning to your door? Are they arguing about you? At this point you don&#39;t really care anymore, you just need to finish you paper. Just, one more paper...]
+
+(set: $again to true)
 
 Do you ask them to [[move -&gt; argument]]?
 
 Do you go to the [[library ]]?
 Do you go to the [[cafeteria ]]?</tw-passagedata>
-<tw-passagedata pid="6" name=" argument" tags="" position="650,725">&quot;Excuse me, I need to use that door&quot;, you say. The strangers suddently stop and look at you. There&#39;s a tense moment where you don&#39;t know what is going to happen.
+<tw-passagedata pid="6" name=" argument" tags="" position="718,639">&quot;Excuse me, I need to use that door&quot;, you say. The strangers suddently stop and look at you. There&#39;s a tense moment where you don&#39;t know what is going to happen.
 
 
 
 
 They look startled by you, they say sorry and you are free to enter your [[office -&gt; office without coffee]].</tw-passagedata>
-<tw-passagedata pid="7" name=" office without coffee" tags="" position="818,708">You seat at yout desk, still sleepy, you cannot remember what was that you were doing.
+<tw-passagedata pid="7" name=" office without coffee" tags="" position="721,479">(if: $coffee is &quot;normal&quot;)[
+You should have gone with the large coffee. With people arguing in the corridor and all, you finished it before arriving to your office. (set: $coffee to &quot;empty&quot;)
+](else-if: $coffee is &quot;large&quot;)[
+You sit at your desk, pleased to have such a huge cup of coffee.
+](else:)[
+You seat at yout desk, still sleepy, you cannot remember what was that you were doing.
+]
 
 [[Stare at the screen -&gt; computer screen]] and try to make sense of it.</tw-passagedata>
-<tw-passagedata pid="8" name=" computer screen" tags="" position="991,706">The text looks like gibberish, you&#39;re too tired to care.</tw-passagedata>
+<tw-passagedata pid="8" name=" computer screen" tags="" position="722,314">(if: $coffee is &quot;large&quot;)[
+That looks very complicated! - You sip your coffee pondering about how to solve the problem. 
+(if: $book is &quot;history&quot;)[
+You check the book from the library. Everything is there! You finally get it!
+
+From this new understanding you write a great paper.
+
+*The game ends. Later you find a job as an academic, you can never escape the coffee/frustration/more coffee/understanding cycle.*
+(set: $ended to true)
+](else-if: $book is &quot;principles&quot;)[
+You read and read the book, but nothing helps. This problem is too complicated!
+](else-if: $book is &quot;introduction&quot;)[
+Oh, come on! An introductory book will not help with this problem! Try again, genius.
+](else:)[
+You need to get the book on ferode strambalators from the library!
+(set: $book_needed to true)
+]
+](else-if: $coffee is &quot;empty&quot;)[
+You keep thinking about more coffee. Why is it that its mere presence lets you think more clearly? You can&#39;t concentrate on the screen.
+](else:)[
+The text looks like gibberish, you&#39;re too tired to care.
+(set: $ended to true)
+*The game ends and find a better life away from school*
+]
+(unless: $ended is true)[
+* Go to the [[library ]] 
+* Go to the [[cafeteria ]] 
+]</tw-passagedata>
 </tw-storydata>
 
 
