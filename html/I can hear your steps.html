@@ -62,9 +62,14 @@ Do you go to the [[cafeteria ]]?</tw-passagedata>
 <tw-passagedata pid="6" name=" argument" tags="" position="718,639">&quot;Excuse me, I need to use that door&quot;, you say. The strangers suddently stop and look at you. There&#39;s a tense moment where you don&#39;t know what is going to happen.
 
 (if: $again &gt; 1)[
+(set: $timeout to 15)(set: $timer to 0)
 One of the strangers looks at you, you can see a sudden realzation in their eyes. &quot;You are my TA!&quot;, they shout in excitement!
 
 Can you help us with our assignment?, we were arguing about it.
+{(live: 1s)[
+(set: $timeout to $timeout - 1)
+(set: $timer to $timer + 1)
+The situation is very tense, you have struggled to answer for $timer second(if: $timer &gt; 1)[s].]}
 
 You decide to [[help]] them.
 You [[run away]] to have some time for planning.
@@ -111,7 +116,8 @@ The text looks like gibberish, you&#39;re too tired to care.
 <tw-passagedata pid="9" name="help" tags="" position="478,647">Time stops, and you are trapped in your office explaining question 4 of assignment 3 for all eternity.
 
 *The game ends, but your pain goes on forever!*</tw-passagedata>
-<tw-passagedata pid="10" name="run away" tags="" position="894,453">You&#39;re an outlaw now. You need to hide until the issue cools down. Perhaps if you hide util the assignment is due everything will be safe again. The library and the cafeteria are, of course, out of bounds.
+<tw-passagedata pid="10" name="run away" tags="" position="894,453">(if: $timeout &lt; 0)[(goto: &quot;they catch you&quot;)]
+You&#39;re an outlaw now. You need to hide until the issue cools down. Perhaps if you hide util the assignment is due everything will be safe again. The library and the cafeteria are, of course, out of bounds.
 
 One thing is clear, you cannot go back to your office until this is figured out.
 
@@ -151,6 +157,9 @@ It turns out it was a really simple problem, you help them and they leave after 
 
 You go back to your [[office -&gt; office without coffee]].
 </tw-passagedata>
+<tw-passagedata pid="16" name="they catch you" tags="" position="548,798">You try to run, but it&#39;s too late! They grab your elbow and start explaining their problems.
+
+You decide to [[help]].</tw-passagedata>
 </tw-storydata>
 
 
