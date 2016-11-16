@@ -8,7 +8,7 @@ Do you need to go to the [[library &lt;- left]] or to the [[cafeteria &lt;- righ
 <tw-passagedata pid="2" name="time" tags="" position="338,48">It&#39;s the evening, it&#39;s always the evening. Around 8PM? Who knows, why would anyone care...
 
 [[back -&gt;the silent corridor]] </tw-passagedata>
-<tw-passagedata pid="3" name="library " tags="" position="188,367">There&#39;s plenty of people here. But no one minds each other, everyone is busy working. It&#39;s always midterm time at the library.
+<tw-passagedata pid="3" name="library " tags="" position="64,348">There&#39;s plenty of people here. But no one minds each other, everyone is busy working. It&#39;s always midterm time at the library.
 
 (if: $book_needed is true)[
 Which was the book that you needed?
@@ -22,7 +22,7 @@ Which was the book that you needed?
 You go to the third floor and idly browse your favourite books. After a while, you remember all the unread books on your desk and stop looking for more.] You go [[back to your office -&gt; the not so silent corridor]]. 
 
 </tw-passagedata>
-<tw-passagedata pid="4" name="cafeteria " tags="" position="1157,492">The cafeteria is cheerful, people are working in teams, eating and hanging out with friends. You like it here, and you think you should use it more often. An idea that you only have when in the cafeteria, you&#39;ll forget this feeling the moment you walk out the door.
+<tw-passagedata pid="4" name="cafeteria " tags="" position="1387,279">The cafeteria is cheerful, people are working in teams, eating and hanging out with friends. You like it here, and you think you should use it more often. An idea that you only have when in the cafeteria, you&#39;ll forget this feeling the moment you walk out the door.
 
 What will it be?
 
@@ -38,23 +38,27 @@ You stand in line to grab a coffee but soon abandon the idea, the line is too lo
 
 
 </tw-passagedata>
-<tw-passagedata pid="5" name=" the not so silent corridor" tags="" position="708,851">There are two people arguing in front of your office(if: $again is true)[, again!](else:)[.] Their tone is tense and very loud. You *just* want to sneak in your office.
-
-(if: $again is true)[What keeps them returning to your door? Are they arguing about you? At this point you don&#39;t really care anymore, you just need to finish you paper. Just, one more paper...]
-
-(set: $again to true)
-
+<tw-passagedata pid="5" name=" the not so silent corridor" tags="" position="774,1233">(if: $argument is &quot;solved&quot;)[ (goto: &quot; office without coffee&quot;)]
+There are two people arguing in front of your office(if: $again &gt; 0)[, **again!**](else:)[.] Their tone is tense and very loud. You *just* want to sneak in your office.
+(if: $again &gt; 0)[What keeps them returning to your door? Are they arguing about you? At this point you don&#39;t really care anymore, you just need to finish you paper. Just, one more paper...]
+(set: $again to $again + 1)
 Do you ask them to [[move -&gt; argument]]?
 
 Do you go to the [[library ]]?
 Do you go to the [[cafeteria ]]?</tw-passagedata>
 <tw-passagedata pid="6" name=" argument" tags="" position="718,639">&quot;Excuse me, I need to use that door&quot;, you say. The strangers suddently stop and look at you. There&#39;s a tense moment where you don&#39;t know what is going to happen.
 
+(if: $again &gt; 1)[
+One of the strangers looks at you, you can see a sudden realzation in their eyes. &quot;You are my TA!&quot;, they shout in excitement!
 
+Can you help us with our assignment?, we were arguing about it.
 
-
-They look startled by you, they say sorry and you are free to enter your [[office -&gt; office without coffee]].</tw-passagedata>
-<tw-passagedata pid="7" name=" office without coffee" tags="" position="721,479">(if: $coffee is &quot;normal&quot;)[
+You decide to [[help]] them.
+You [[run away]] to have some time for planning.
+](else:)[
+They look startled by you, they say sorry and you are free to enter your [[office -&gt; office without coffee]].
+]</tw-passagedata>
+<tw-passagedata pid="7" name=" office without coffee" tags="" position="696,480">(if: $coffee is &quot;normal&quot;)[
 You should have gone with the large coffee. With people arguing in the corridor and all, you finished it before arriving to your office. (set: $coffee to &quot;empty&quot;)
 ](else-if: $coffee is &quot;large&quot;)[
 You sit at your desk, pleased to have such a huge cup of coffee.
@@ -91,6 +95,49 @@ The text looks like gibberish, you&#39;re too tired to care.
 * Go to the [[library ]] 
 * Go to the [[cafeteria ]] 
 ]</tw-passagedata>
+<tw-passagedata pid="9" name="help" tags="" position="478,647">Time stops, and you are trapped in your office explaining question 4 of assignment 3 for all eternity.
+
+*The game ends, but your pain goes on forever!*</tw-passagedata>
+<tw-passagedata pid="10" name="run away" tags="" position="894,453">You&#39;re an outlaw now. You need to hide until the issue cools down. Perhaps if you hide util the assignment is due everything will be safe again. The library and the cafeteria are, of course, out of bounds.
+
+One thing is clear, you cannot go back to your office until this is figured out.
+
+You need to [think]&lt;think|.
+(click: ?think)[
+There is only one place to go... You have never been, but you heard of it in tales and songs.
+
+You need to hide in the [[gym]].
+]</tw-passagedata>
+<tw-passagedata pid="11" name="gym" tags="" position="894,603">The gym smells funny. All the memories from gym class come back. You are already bored, this is not going to work. 
+
+Disappointed, you leave the gym. You walk down the street.
+
+Do you go [[home]], do you go back to your [[office -&gt; sieged lab]].</tw-passagedata>
+<tw-passagedata pid="12" name="home" tags="" position="1107,932">You arrive home, you walk to the kitchen to prepare some dinner.
+The fridge is empty, it also smells funny...
+
+The only edible option is prepare a PB &amp; J. So, that will have to do.
+
+You sit with your laptop in your cozy couch (your favourite piece of furniture) and you make a crucial mistake, you check your [[email]].</tw-passagedata>
+<tw-passagedata pid="13" name=" sieged lab" tags="" position="811,813">The students are still there. The run towards you when they see you. 
+
+Do you [[ignore]] them or you try to [[help]]?</tw-passagedata>
+<tw-passagedata pid="14" name="email" tags="" position="1272,934">The students outside your office have asked questions by email, and so have 17 others. After eating your mood is better, you remember the fear and anxiety that only assignments and exams can bring. You decide to help.
+
+You spend the next two hours helping, it turns out that the big problem was a simple missunderstanding with the assignment statement. At the end, all the students thank you and merrily continue working.
+
+You are sleepy and you don&#39;t have coffe at home. You decide to go to bed and watch Netflix before sleeping. Today you didn&#39;t achieve much, but tomorrow will be another day.
+
+* The game ends, but your life continues. There will be a long sequence of underwhelming days before things get better. *</tw-passagedata>
+<tw-passagedata pid="15" name="ignore" tags="" position="435,473">You talk to the students telling them that you don&#39;t have time right now. You have troubles of your own.
+
+They understand, but they really need help. Without waiting for you to sneak out, they shoot their questions...
+
+It turns out it was a really simple problem, you help them and they leave after thanking you.
+(set: $argument to &quot;solved&quot;)
+
+You go back to your [[office -&gt; office without coffee]].
+</tw-passagedata>
 </tw-storydata>
 
 
